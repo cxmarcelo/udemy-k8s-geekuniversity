@@ -1,0 +1,73 @@
+//criar um cluster com minikube
+minikube start
+
+//deleta o cluster minikube
+minikube delete
+
+//Mostra todos os pods do cluster
+kubectl get pods
+
+//Create deployment
+kubectl create -f nome-do-arquivo.yaml --save-config --record
+
+//Executar / Criar todos arquivos da pastar
+kubectl create -f .\nome-da-pasta\ --save-config --record
+
+//aplica alterações
+kubectl apply -f nome-do-arquivo.yaml
+
+//Deletar deployment (junto com replicaSets e pods)
+kubectl delete deployment nome-do-deployment
+
+//Mostra status do deployment (caso esteja em execução, vai ir mostrando o passo a passo)
+kubectl rollout status deployment/nome-do-deployment
+
+//Mostra informações do deployment
+kubectl get deployment nome-deployment
+
+//Mostra mais informações do deployment
+kubectl describe deployment fronent-dp  
+
+//Ver historico de revisoes
+kubectl history deployment/nome-do-deployment
+
+//ROLLBACK para versão anterior
+kubectl rollout undo deployment/nome-do-deployment
+
+//ROLLBACK para versão especifica
+kubectl rollout undo deployment/nome-do-deployment --to-revision
+
+//NAO RECOMENDADOS
+//Troca versao da imagem no container, porém é melhor ter essas alterações em arquivos
+kubectl set image deployment frontend-dp frontend-container=nginx:1.18 --record 
+
+//Escalar numero de replicas
+kubectl scale deployment/nome-do-deployment --replicas=10
+
+//busca todos namespaces
+kubectl get namespaces
+kubectl get ns
+
+//busca pods de um determinado namespace
+kubectl get pods -n default
+
+//criar namespace
+kubectl create namespace nome-do-namespace --save-config
+
+//criar objets com namespace
+kubectl create -f nome-do-arquivo.yaml --save-config --namespace=nome-do-namespace
+
+//obs consultar por padrao utiliza o namespace default, tem que especificar o namespace
+kubectl get pods -n nome-do-namespace
+
+//acessar a um pod
+kubectl exec -it nome-do-pod -- bash
+
+
+
+##REF
+kubectl create -f .\services\frontend-svc.yaml
+
+minikube service frontend-svc --url
+
+minikube service frontend-svc --url
